@@ -1,0 +1,20 @@
+{
+  "name": "rainfallanalysis",
+  "version": "1.0.0",
+  "description": "A weather app",
+  "main": "server.js",  
+  "scripts": {
+    "start": "node server.js"  
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^4.4.0",
+    "uuid": "^8.3.2"
+  },
+  "engines": {
+    "node": ">=14.0.0" 
+  },
+  "devDependencies": {},
+  "author": "xaman27x",
+  "license": "MIT"
+}
