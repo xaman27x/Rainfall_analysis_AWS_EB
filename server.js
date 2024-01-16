@@ -3,7 +3,7 @@ const { exec } = require('child_process');
 const { v4: uuidv4 } = require('uuid');
 const { MongoClient } = require('mongodb');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000 || 8080;
 
 const sharedData = {
   currentUniqueId: null,
@@ -15,7 +15,7 @@ app.get('/run-python-script', (req, res) => {
   const { latitude, longitude } = req.query;
   const uniqueId = uuidv4();
   sharedData.currentUniqueId = uniqueId;
-
+// Python script for MeteoStat API
   exec(`python3 api.py ${latitude} ${longitude} ${uniqueId}`, (error, stdout, stderr) => {
     if (error) {
       console.error('Error:', error);
