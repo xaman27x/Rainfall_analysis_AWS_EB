@@ -62,15 +62,5 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3
 
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'rainfallanalysis'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.azureWebAppPublishProfile }}
-          package: .
-
-
 
           
