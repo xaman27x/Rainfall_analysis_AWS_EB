@@ -16,12 +16,12 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'  
+          node-version: '14'  # Choose a Node.js version that suits your project
 
       - name: Install Python
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3
+          sudo apt-get install -y python3  # Use 'python3' instead of 'python'
 
       - name: npm install, build, and test
         run: |
@@ -45,7 +45,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write 
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -59,7 +59,7 @@ jobs:
       - name: Install Python
         run: |
           sudo apt-get update
-          sudo apt-get install -y python
+          sudo apt-get install -y python3 
 
       - name: Login to Azure
         uses: azure/login@v1
