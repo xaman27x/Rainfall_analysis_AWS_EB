@@ -64,17 +64,12 @@ jobs:
 
       - name: Set up Repository Secrets
         run: |
-          echo "AZUREAPPSERVICE_CLIENT_SECRET=${{ secrets.AZUREAPPSERVICE_CLIENT_SECRET }}" >> $GITHUB_ENV
-          echo "AZUREAPPSERVICE_CLIENT_ID=${{ secrets.AZUREAPPSERVICE_CLIENT_ID }}" >> $GITHUB_ENV
-          echo "AZUREAPPSERVICE_TENANT_ID=${{ secrets.AZUREAPPSERVICE_TENANT_ID }}" >> $GITHUB_ENV
-          echo "AZUREAPPSERVICE_SUBSCRIPTION_ID=${{ secrets.AZUREAPPSERVICE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+          echo "AZUREAPPSERVICE_SERVICE_PRINCIPAL=${{ secrets.AZUREAPPSERVICE_SERVICE_PRINCIPAL }}" >> $GITHUB_ENV
 
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZUREAPPSERVICE_CLIENT_SECRET }}
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANT_ID }}
+          creds: ${{ secrets.AZUREAPPSERVICE_SERVICE_PRINCIPAL }}
 
       - name: Set Azure Subscription
         run: az account set --subscription ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTION_ID }}
@@ -87,6 +82,7 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.azureWebAppPublishProfile }}
           package: .
+
 
 
           
