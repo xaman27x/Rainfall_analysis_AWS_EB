@@ -11,19 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '14'  # Choose a Node.js version that suits your project
+          node-version: '14'
 
-      - name: Install Python
+      - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3  # Use 'python3' instead of 'python'
+          sudo apt-get install -y python3
 
-      - name: npm install, build, and test
+      - name: Install npm packages, build, and test
         run: |
           npm install
           npm run build --if-present
@@ -45,7 +46,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write # This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -59,7 +60,14 @@ jobs:
       - name: Install Python
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3 
+          sudo apt-get install -y python3
+
+      - name: Set up Repository Secrets
+        run: |
+          echo "AZUREAPPSERVICE_CLIENT_SECRET=${{ secrets.AZUREAPPSERVICE_CLIENT_SECRET }}" >> $GITHUB_ENV
+          echo "AZUREAPPSERVICE_CLIENT_ID=${{ secrets.AZUREAPPSERVICE_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "AZUREAPPSERVICE_TENANT_ID=${{ secrets.AZUREAPPSERVICE_TENANT_ID }}" >> $GITHUB_ENV
+          echo "AZUREAPPSERVICE_SUBSCRIPTION_ID=${{ secrets.AZUREAPPSERVICE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -67,7 +75,6 @@ jobs:
           creds: ${{ secrets.AZUREAPPSERVICE_CLIENT_SECRET }}
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANT_ID }}
-
 
       - name: Set Azure Subscription
         run: az account set --subscription ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTION_ID }}
@@ -80,5 +87,6 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.azureWebAppPublishProfile }}
           package: .
+
 
           
