@@ -68,5 +68,6 @@ jobs:
           app-name: 'rainfallanalysis'
           slot-name: 'Production'
           publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+          package: .
           
           
