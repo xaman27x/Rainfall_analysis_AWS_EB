@@ -16,7 +16,7 @@ app.get('/run-python-script', (req, res) => {
   const uniqueId = uuidv4();
   sharedData.currentUniqueId = uniqueId;
 
-  exec(`python api.py ${latitude} ${longitude} ${uniqueId}`, (error, stdout, stderr) => {
+  exec(`python3 api.py ${latitude} ${longitude} ${uniqueId}`, (error, stdout, stderr) => {
     if (error) {
       console.error('Error:', error);
       res.status(500).json({ error: 'Internal Server Error' });
