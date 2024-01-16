@@ -46,7 +46,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write
 
     steps:
       - name: Download artifact from build job
@@ -61,6 +61,27 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3
+
+      - name: Set up Repository Secrets
+        run: |
+          echo "AZUREAPPSERVICE_SERVICE_PRINCIPAL=${{ secrets.AZUREAPPSERVICE_SERVICE_PRINCIPAL }}" >> $GITHUB_ENV
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZUREAPPSERVICE_SERVICE_PRINCIPAL }}
+
+      - name: Set Azure Subscription
+        run: az account set --subscription ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTION_ID }}
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'rainfallanalysis'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+          package: .
 
 
           
