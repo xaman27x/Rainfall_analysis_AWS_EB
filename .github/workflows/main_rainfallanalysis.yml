@@ -60,12 +60,13 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_26E5D42CF7F141E5809CC0E654D66B5D }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F67E4DAD6A2B4E358DB1439396524680 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7C0BF7FF7B5242A1AC70438E16982127 }}
-
+        
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'rainfallanalysis'
           slot-name: 'Production'
-          package: .
+          publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+          
           
