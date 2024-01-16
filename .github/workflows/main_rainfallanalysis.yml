@@ -62,10 +62,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3
 
-      - name: Set up Repository Secrets
-        run: |
-          echo "AZUREAPPSERVICE_SERVICE_PRINCIPAL=${{ secrets.AZUREAPPSERVICE_SERVICE_PRINCIPAL }}" >> $GITHUB_ENV
-
       - name: Login to Azure
         uses: azure/login@v1
         with:
