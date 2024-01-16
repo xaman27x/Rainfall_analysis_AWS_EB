@@ -46,7 +46,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write 
 
     steps:
       - name: Download artifact from build job
@@ -65,10 +65,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Set Azure Subscription
-        run: az account set --subscription ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTION_ID }}
+         creds: ${{ secrets.AZURE_CREDENTIALS }}
+         enable-AzPSSession: true
+    
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -76,7 +75,6 @@ jobs:
         with:
           app-name: 'rainfallanalysis'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.azureWebAppPublishProfile }}
           package: .
 
 
