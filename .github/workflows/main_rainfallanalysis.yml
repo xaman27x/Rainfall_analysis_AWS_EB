@@ -57,10 +57,14 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Install Python
+      - name: Install Python and Libraries
         run: |
           sudo apt-get update
           sudo apt-get install -y python3
+          pip3 install numpy
+          pip install meteostat
+          pip install pymongo
+          pip install scikit-learn
 
       - name: Login to Azure
         uses: azure/login@v1
