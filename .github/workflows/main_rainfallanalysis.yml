@@ -23,6 +23,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3
+          pip3 install numpy
+          pip install meteostat
+          pip install pymongo
+          pip install scikit-learn
 
       - name: Install npm packages, build, and test
         run: |
@@ -61,10 +65,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3
-          pip3 install numpy
-          pip install meteostat
-          pip install pymongo
-          pip install scikit-learn
 
       - name: Login to Azure
         uses: azure/login@v1
