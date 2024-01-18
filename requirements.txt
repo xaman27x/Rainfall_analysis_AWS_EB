@@ -1,3 +1,4 @@
 meteostat
 scikit-learn
 pymongo
+numpy
