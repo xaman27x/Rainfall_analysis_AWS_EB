@@ -23,10 +23,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3
-          pip3 install numpy
-          pip install meteostat
-          pip install pymongo
-          pip install scikit-learn
+          pip3 install numpy meteostat pymongo scikit-learn
 
       - name: Install npm packages, build, and test
         run: |
@@ -66,12 +63,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3
 
+      - name: Install Python libraries
+        run: |
+          python3 -m pip install -r requirements.txt  
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
          creds: ${{ secrets.AZURE_CREDENTIALS }}
          enable-AzPSSession: true
-    
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -80,6 +80,7 @@ jobs:
           app-name: 'rainfallanalysis'
           slot-name: 'Production'
           package: .
+
 
 
 
