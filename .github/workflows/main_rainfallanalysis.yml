@@ -19,17 +19,15 @@ jobs:
         with:
           node-version: '14'
           
-      - name: Add Python to PATH
-        run: |
-         sudo apt-get update
-         sudo apt-get install -y python3
-         export PATH="$PATH:/usr/bin/python3"
+      - name: Install Python and Libraries
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y python3
-          pip3 install numpy meteostat pymongo scikit-learn
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Install npm packages, build, and test
         run: |
