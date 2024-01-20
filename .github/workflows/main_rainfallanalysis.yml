@@ -39,8 +39,10 @@ jobs:
 
       - name: Add requirements.txt to artifact
         run: |
-          zip -r release.zip requirements.txt
+         pip install -r requirements.txt
+         zip -r release.zip requirements.txt
         working-directory: ${{ github.workspace }}
+
         
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
