@@ -2,3 +2,4 @@ meteostat
 scikit-learn
 pymongo
 numpy
+pandas
