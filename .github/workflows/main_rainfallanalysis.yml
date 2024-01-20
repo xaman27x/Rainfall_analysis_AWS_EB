@@ -18,6 +18,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '14'
+          
+      - name: Add Python to PATH
+        run: |
+         sudo apt-get update
+         sudo apt-get install -y python3
+         export PATH="$PATH:/usr/bin/python3"
 
       - name: Install dependencies
         run: |
@@ -41,6 +47,9 @@ jobs:
           zip -r release.zip requirements.txt
         working-directory: ${{ github.workspace }}
 
+      - name: List contents of the zip file
+        run: unzip -l release.zip
+        working-directory: ${{ github.workspace }}
 
 
       - name: Upload artifact for deployment job
