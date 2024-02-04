@@ -36,7 +36,7 @@ app.get('/run-python-script', (req, res) => {
 
 app.get('/run-new-script', async (req, res) => {
   let array = [];
-  const url = process.env.MONGODB_URI || 'mongodb+srv://aman27072005:aman27072005@cluster0.xzgimqn.mongodb.net/?retryWrites=true&w=majority';
+  const url = process.env.MONGODB_URI;
   const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
   try {
