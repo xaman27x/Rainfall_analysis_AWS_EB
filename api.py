@@ -9,7 +9,7 @@ import sys
 if len(sys.argv) < 4:
     print("Usage: python script.py latitude longitude uniqueId")
     sys.exit(1)
-mongodb_uri = os.environ.get('MONGODB_URI', 'mongodb+srv://aman27072005:aman27072005@cluster0.xzgimqn.mongodb.net/?retryWrites=true&w=majority')
+mongodb_uri = os.environ.get('MONGODB_URI')
 
 latitude = float(sys.argv[1])
 longitude = float(sys.argv[2])
